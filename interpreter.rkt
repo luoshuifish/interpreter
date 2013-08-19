@@ -7,6 +7,8 @@
 (define (atom? exp)
   (not (pair? exp)))
 
+(define 
+
 (define (evaluate exp env)
   (if (atom? exp)
       (cond ((symbol? exp) (lookup exp env))
@@ -23,5 +25,7 @@
         ((begin) (eprogn (edr e) env)) 
         ((lambda) (make-function (cadr e) (cddr e) env)) 
         (else (invoke (evaluate (cadr exp) env)
-                      )))
-      )
+                      (evlis (cdr exp) env))))))
+
+
+      
