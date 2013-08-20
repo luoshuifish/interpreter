@@ -7,7 +7,27 @@
 (define (atom? exp)
   (not (pair? exp)))
 
-(define 
+(define (eprogn exps env)
+  (if (pair? exps)
+      (if (pair? (cdr exps))
+          (begin (evaluate (car exps) env)
+                 (eprogn (cdr exps env))))
+      empty-begin))
+
+(define empty-begin 813)
+
+
+;(define (evlis exps env)
+;  (if (pair? exps)
+;      (cons (evaluate (car exps) env)
+;            (evlis (cdr exps) env))
+;      '()))
+
+(define (evlis exps env)
+  (if (pair? exps)
+      (cons (evaluate (car exps) env)
+            (evlis (cdr exps) env))
+      '()))
 
 (define (evaluate exp env)
   (if (atom? exp)
