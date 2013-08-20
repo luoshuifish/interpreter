@@ -30,9 +30,38 @@
             (evlis (cdr exps) env)))
       '()))
 
+(define env.init '())
+
+(define (extend env variables values)
+  (cond ((pair? variables)
+         (if (pair? values)
+             (cons (cons (car variables) (cdr values))
+                   (extend env (cdr variables)  (cdr values)))
+             (wrong "Too less values")))
+        ((null? variables)
+         (if (null? values)
+             env
+             (wrong "Too much values")))
+        ((symbol? variables) 
+                   
+
+
 (define (lookup id env)
   (if (pair? env)
-      (
+      (if (eq? (caar env) id)
+          (cdar env)
+          (looup id (cdr env)))
+      (wrong "No such binding" id)))
+
+(define (update! id env value)
+  (if (pair? env)
+      (if (eq? (caar env) id)
+          (begin (set-cdr! (car env) value)
+                 value)
+          (update! id (cdr env) value))
+      (wrong "No such bingding")))
+                 
+                           
 
 (define (evaluate exp env)
   (if (atom? exp)
