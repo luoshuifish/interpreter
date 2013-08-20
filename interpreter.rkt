@@ -25,9 +25,14 @@
 
 (define (evlis exps env)
   (if (pair? exps)
-      (cons (evaluate (car exps) env)
-            (evlis (cdr exps) env))
+      (let ((argument1 (evaluate (car exps) env)))
+      (cons argument1
+            (evlis (cdr exps) env)))
       '()))
+
+(define (lookup id env)
+  (if (pair? env)
+      (
 
 (define (evaluate exp env)
   (if (atom? exp)
