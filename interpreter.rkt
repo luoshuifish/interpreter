@@ -42,7 +42,16 @@
          (if (null? values)
              env
              (wrong "Too much values")))
-        ((symbol? variables) 
+        ((symbol? variables)  (cons (cons variables values) env))))
+
+(define (invoke fn args)
+  (if (procedure? fn)
+      (fn args)
+      (wrong "Not a function" fn)))
+
+(define (make-function variables body env)
+  (lambda (values)
+    (eprogn body (extend env.init variables values))))
                    
 
 
